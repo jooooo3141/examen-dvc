@@ -41,6 +41,7 @@ stages:
     deps:
     - data/processed_data/X_test_scaled.csv
     - data/processed_data/y_test.csv
+    - models/model.pkl
     - src/models/evaluate_model.py
     outs:
     - data/predictions.csv
