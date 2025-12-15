@@ -4,7 +4,9 @@ import joblib
 import pandas as pd
 from sklearn.metrics import mean_squared_error, r2_score
 
-
+#*******************
+# Evaluate the trained model and save metrics and predictions
+#*******************
 base_dir = os.path.dirname(os.path.abspath(__file__))
 metrics_dir = os.path.abspath(os.path.join(base_dir, "..","..", "metrics"))
 model_dir = os.path.abspath(os.path.join(base_dir, "..","..", "models"))
@@ -24,6 +26,6 @@ predictions_df = pd.DataFrame({"y_true": y_test, "y_pred": y_pred})
 
 predictions_df.to_csv(os.path.join(output_dir, "predictions.csv"), index=False)
 
-with open(os.path.join(metrics_dir, "evaluation_metrics.json"), "w") as f:
+with open(os.path.join(metrics_dir, "score.json"), "w") as f:
     json.dump({"mean_squared_error": mse, "r2_score": r2}, f)
 

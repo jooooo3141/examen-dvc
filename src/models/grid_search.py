@@ -7,6 +7,10 @@ from sklearn.linear_model import Ridge, Lasso
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, make_scorer
 
+#*******************
+# Perform grid search to find the best model and hyperparameters
+#*******************
+
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.abspath(os.path.join(base_dir, "..","..", "data", "processed_data"))
@@ -47,12 +51,6 @@ param_grid = {
     }   
 }
 
-#mse_scorer = make_scorer(
-##    mean_squared_error,
- #   greater_is_better=False,
- #   squared=False
-#    )
-
 best_overall_model = None
 best_overall_score = float("inf")
 best_model_name = ""
@@ -82,7 +80,7 @@ best_params = {
     "parameters": bast_params
 }
 
-model_path = os.path.join(model_dir, f"params.pkl")
+model_path = os.path.join(model_dir, f"best_params.pkl")
 joblib.dump(best_params, model_path)
 print(f"Best overall model: {best_model_name} with RMSE: {best_overall_score:.4f}")
 print(f"Model saved to {model_path}")
