@@ -1,8 +1,8 @@
 stages:
-  prepare:
+  split:
     cmd: python src/data/make_dataset.py
     deps:
-    - data/raw_data
+    - data/raw_data/raw.csv
     - src/data/make_dataset.py
     outs:
     - ./data/processed_data/X_train.csv
@@ -12,7 +12,8 @@ stages:
   normalization:
     cmd: python src/data/scale_data.py
     deps:
-    - data/raw_data
+    - data/processed_data/X_train.csv
+    - data/processed_data/X_test.csv
     - src/data/scale_data.py
     outs:
     - ./data/processed_data/X_train_scaled.csv
@@ -24,14 +25,14 @@ stages:
     - ./data/processed_data/y_train.csv
     - src/models/grid_search.py
     outs:
-    - ./models/params.pkl
+    - ./models/best_params.pkl
   training:
     cmd: python src/models/train_model.py
     deps:
     - ./src/models/train_model.py
     - data/processed_data/X_train_scaled.csv
     - data/processed_data/y_train.csv
-    - models/params.pkl
+    - models/best_params.pkl
     outs:
     - models/model.pkl
 
